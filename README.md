@@ -8,6 +8,8 @@ No state, no environments, no provider configuration lives here — callers own 
 | Module | Purpose |
 |---|---|
 | `aws_ec2` | EC2 instance, facade over `terraform-aws-modules/ec2-instance/aws` |
+| `aws_ecr` | ECR repository: immutable tags, scan on push, keep-last-N lifecycle |
+| `aws_iam_github_role` | IAM role assumed by GitHub Actions via OIDC, scoped to specific repo subjects |
 
 ## Consuming a module
 
