@@ -43,9 +43,18 @@ resource "aws_iam_role" "this" {
 }
 
 resource "aws_iam_role_policy" "this" {
-  count = var.policy_json == null ? 0 : 1
+  # count must be known at plan time. policy_json usually is not (it is built from another
+  # resource's ARN), so the decision is a plain bool the caller sets, never a null check on it.
+  count = var.attach_policy ? 1 : 0
 
   name   = "${local.name}-inline"
   role   = aws_iam_role.this.id
   policy = var.policy_json
+
+  lifecycle {
+    precondition {
+      condition     = var.policy_json != null
+      error_message = "policy_json must be set when attach_policy is true."
+    }
+  }
 }

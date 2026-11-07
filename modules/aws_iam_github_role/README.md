@@ -40,7 +40,8 @@ module "ci_role" {
 | tags | Common tags | map(string) | - | yes |
 | oidc_provider_arn | ARN of the GitHub OIDC provider | string | - | yes |
 | allowed_subjects | GitHub `sub` claims allowed to assume the role | list(string) | - | yes |
-| policy_json | Inline permissions policy (JSON); null = none | string | null | no |
+| attach_policy | Attach the inline policy; must be a value known at plan time | bool | true | no |
+| policy_json | Inline permissions policy (JSON); required when attach_policy is true | string | null | no |
 | max_session_duration | Credential lifetime in seconds | number | 3600 | no |
 
 ## Outputs

@@ -64,8 +64,18 @@ variable "allowed_subjects" {
   }
 }
 
+variable "attach_policy" {
+  description = <<-EOT
+    Whether to attach the inline permissions policy. Kept separate from policy_json because
+    policy_json is normally unknown until apply, and `count` cannot depend on an unknown value.
+    Set false for a role that deliberately has no permissions.
+  EOT
+  type        = bool
+  default     = true
+}
+
 variable "policy_json" {
-  description = "Inline permissions policy (JSON) granting what the role may do. Null attaches no permissions."
+  description = "Inline permissions policy (JSON) granting what the role may do. Required when attach_policy is true."
   type        = string
   default     = null
 }
